@@ -1,0 +1,27 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 12%, rgba(233,216,11,1) 65%);
+}
+
+.appglass{
+    background-color: rgba(255, 255, 255, 0.473);
+    margin: 50px;
+    padding: 20px;
+    border-radius: 20px;
+    height: 530px;
+}
+
+.title{
+    text-align: center;
+}
+
+.nameInput{
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+}
