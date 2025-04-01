@@ -1,59 +1,64 @@
 const allStudent = [];
-
 const student = document.querySelector('.student');
 const studentList = document.querySelector('.nameShowList');
-const examScoreInput = document.querySelector('#examScoreInput');
-const addScoreBtn = document.querySelector('#addScoreBtn');
 
-student.addEventListener('keydown', (event) =>{
+student.addEventListener('keydown', (event) => {
 
-    if (event.keyCode !== 13) 
+  if (event.key !== 'Enter') 
 
-        return 
+    return;
 
-        studentValue = event.target.value; 
+    let studentValue = event.target.value.trim();
 
-        if ( isNaN(studentValue) && allStudent.length < 10) {
+         if (isNaN(studentValue) && studentValue !== '' && allStudent.length < 10) {
 
                 allStudent.push(studentValue);
-                
-                addStudentHTML(studentValue)
+
+                addStudentHTML(studentValue);
 
                 console.log(allStudent);
 
                 event.target.value = '';
 
-                clickBtn ();
-
         } else {
 
-            alert('Solo 10 alumnos por sesion, se alcanzo el maximo');
-            event.target.value = '';
-            
-        }  
+                alert('Solo 10 alumnos por sesión, se alcanzó el máximo');
 
-   } )
+                event.target.value = '';
 
- function addStudentHTML(student) {
+        }
 
-        let li = document.createElement('li')
-        li.innerHTML = `<p> ${student} <input type="text" id= "examScoreInput"> <button id= "addScoreBtn" '>add</button></p>`;
-        studentList.appendChild(li);
-        
-        
+        });
+
+function addStudentHTML(student) {
+
+    let li = document.createElement('li');
+
+    li.innerHTML = ` <p> ${student} <input type="text" class="examScoreInput">   <button class="addScoreBtn">Agregar</button>   </p> `;
+
+    studentList.appendChild(li);
+
 }
 
-// onclick='clickBtn()
+// Event delegation para los botones
 
-function clickBtn () {
+    studentList.addEventListener('click', (event) => {
 
-    addScoreBtn.addEventListener('click', () =>{
+    if (event.target.classList.contains('addScoreBtn')) {
 
-        console.log(allStudent);
-    
-       } )
-    
-}
+        let parent = event.target.closest('p');
+
+        let input = parent.querySelector('.examScoreInput');
+
+        if (input) {
+
+        console.log(`Nota de ${parent.textContent.trim()}: ${input.value}`);
+
+        }
+
+    }
+
+    });
 
         
 
