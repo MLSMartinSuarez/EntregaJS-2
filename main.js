@@ -1,6 +1,11 @@
 const allStudent = [];
+const registry = [];
 const student = document.querySelector('.student');
 const studentList = document.querySelector('.nameShowList');
+const studentRegistry = document.querySelector('.studentRegistry2');
+
+
+
 
 student.addEventListener('keydown', (event) => {
 
@@ -34,11 +39,13 @@ function addStudentHTML(student) {
 
     let li = document.createElement('li');
 
-    li.innerHTML = ` <p> ${student} <input type="text" class="examScoreInput">   <button class="addScoreBtn">Agregar</button>   </p> `;
+    li.innerHTML = ` ${student} <input type="number" min='1' max ='10' class="examScoreInput">   <button class="addScoreBtn"></button> `;
 
     studentList.appendChild(li);
 
 }
+
+
 
 // Event delegation para los botones
 
@@ -46,13 +53,21 @@ function addStudentHTML(student) {
 
     if (event.target.classList.contains('addScoreBtn')) {
 
-        let parent = event.target.closest('p');
+        let parent = event.target.closest('li');
 
         let input = parent.querySelector('.examScoreInput');
 
         if (input) {
 
-        console.log(`Nota de ${parent.textContent.trim()}: ${input.value}`);
+            let estudiante = parent.textContent.trim()
+
+            let nota = input.value
+
+            alert(`la nota de ${estudiante} es ${nota}, se guardo en el Registro de notas`);
+
+            input.value= '';
+
+           registrarAlumno(estudiante, nota);
 
         }
 
@@ -61,6 +76,24 @@ function addStudentHTML(student) {
     });
 
         
+    function registrarAlumno ( estudiante, nota ) {
 
+        if (!localStorage.getItem(estudiante)) {
+
+            localStorage.setItem( estudiante, `la nota de ${estudiante} fue ${nota} `)
+
+            let registroDelEstudiante = localStorage.getItem(estudiante)
+
+            let li = document.createElement('li');
+
+            li.innerHTML = ` ${registroDelEstudiante} `;
+
+            studentRegistry.appendChild(li);
+
+        } else {
+
+            alert ('ya tiene la nota en el registro')
+        }
+    }
 
 

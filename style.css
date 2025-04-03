@@ -20,8 +20,26 @@ body{
     text-align: center;
 }
 
+.studentDisplay{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+}
+
 .nameInput{
     text-align: center;
     margin-top: 40px;
     padding: 20px;
+}
+
+.nameShowList li{
+    display: flex;
+    padding: 5px;
+    gap: 5px;
+}
+
+.addScoreBtn{
+    width: 50px;
+    height: 18px;
+    background-color: green;
 }
