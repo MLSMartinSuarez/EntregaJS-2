@@ -1,9 +1,9 @@
-const allStudent = [];
-const registry = [];
+let allStudent = [];
 const student = document.querySelector('.student');
 const studentList = document.querySelector('.nameShowList');
-const studentRegistry = document.querySelector('.studentRegistry2');
-
+const studentRegistryList = document.querySelector('.studentRegistryList');
+const emptyRegistry = document.querySelector('.registryBtn');
+const emptyStudentList = document.querySelector('.studentBtn');
 
 
 
@@ -59,15 +59,15 @@ function addStudentHTML(student) {
 
         if (input) {
 
-            let estudiante = parent.textContent.trim()
+            let student = parent.textContent.trim()
 
-            let nota = input.value
+            let calification = input.value
 
-            alert(`la nota de ${estudiante} es ${nota}, se guardo en el Registro de notas`);
+            alert(`la nota de ${student} es ${calification}, se guardo en el Registro de notas`);
 
             input.value= '';
 
-           registrarAlumno(estudiante, nota);
+            studentRegistry(student, calification);
 
         }
 
@@ -76,24 +76,36 @@ function addStudentHTML(student) {
     });
 
         
-    function registrarAlumno ( estudiante, nota ) {
+    function studentRegistry ( student, calification ) {
 
-        if (!localStorage.getItem(estudiante)) {
+        if (!localStorage.getItem(student) && localStorage.length < 10) {
 
-            localStorage.setItem( estudiante, `la nota de ${estudiante} fue ${nota} `)
+            localStorage.setItem( student, `la nota de ${student} fue ${calification} `)
 
-            let registroDelEstudiante = localStorage.getItem(estudiante)
+            let studentLocalStorage = localStorage.getItem(student)
 
             let li = document.createElement('li');
 
-            li.innerHTML = ` ${registroDelEstudiante} `;
+            li.innerHTML = ` ${studentLocalStorage} `;
 
-            studentRegistry.appendChild(li);
+            studentRegistryList.appendChild(li);
+
+        } else if (localStorage.length = 10){
+
+            alert ('Se alcanzo el maximo de 10 alumnos, limpie el registro para continuar')
 
         } else {
-
-            alert ('ya tiene la nota en el registro')
+            alert ('ya existe en el registro')
         }
-    }
+    }   
 
 
+    emptyRegistry.addEventListener('click', () => {
+        localStorage.clear()
+        studentRegistryList.innerHTML= '';
+    })
+
+    emptyStudentList.addEventListener('click', () => {
+        studentList.innerHTML= '';
+        allStudent = [];
+    })
